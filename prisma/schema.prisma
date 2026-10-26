@@ -1,0 +1,65 @@
+generator client {
+  provider = "prisma-client-js"
+}
+datasource db {
+  provider = "sqlite"
+  url = env("DATABASE_URL")
+}
+model Product {
+  id String @id
+  slug String @unique
+  name String
+  brand String
+  category String
+  description String
+  price Int
+  stock Int
+  flavor String
+  ingredients String
+  dietary String
+  protein Int @default(0)
+  servings Int
+  color String
+  published Boolean @default(true)
+  orderItems OrderItem[]
+}
+model User {
+  id String @id @default(cuid())
+  email String @unique
+  passwordHash String
+  name String
+  role String @default("CUSTOMER")
+  sessions Session[]
+  orders Order[]
+}
+model Session {
+  id String @id
+  userId String
+  user User @relation(fields:[userId],references:[id],onDelete:Cascade)
+  expiresAt DateTime
+}
+model Order {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields:[userId],references:[id])
+  status String @default("PENDING")
+  total Int
+  shipping String
+  stripeSessionId String? @unique
+  createdAt DateTime @default(now())
+  items OrderItem[]
+}
+model OrderItem {
+  id String @id @default(cuid())
+  orderId String
+  order Order @relation(fields:[orderId],references:[id])
+  productId String
+  product Product @relation(fields:[productId],references:[id])
+  name String
+  price Int
+  quantity Int
+}
+model WebhookEvent {
+  id String @id
+  createdAt DateTime @default(now())
+}

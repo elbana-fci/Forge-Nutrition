@@ -1,0 +1,35 @@
+{
+  "name": "forge-nutrition",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "start": "node --env-file=.env server/index.js",
+    "db:push": "prisma db push",
+    "db:seed": "node --env-file=.env prisma/seed.js",
+    "test": "node --test tests/*.test.js",
+    "dev:full": "node --env-file=.env server/index.js",
+    "orders:reconcile": "node --env-file=.env server/reconcile.js"
+  },
+  "dependencies": {
+    "@prisma/client": "6.19.0",
+    "bcryptjs": "3.0.2",
+    "cookie-parser": "1.4.7",
+    "dotenv": "16.6.1",
+    "express": "5.1.0",
+    "express-rate-limit": "8.1.0",
+    "helmet": "8.1.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
+    "stripe": "18.5.0",
+    "zod": "4.1.5",
+    "prisma": "6.19.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.6.2",
+    "supertest": "^7.1.4",
+    "vite": "7.1.3"
+  }
+}
